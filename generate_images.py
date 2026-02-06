@@ -110,7 +110,7 @@ async def main() -> None:
     excluded_repos = (
         {x.strip() for x in exclude_repos.split(",")} if exclude_repos else None
     )
-    base_exclusions = {"HTML", "CSS"}
+    base_exclusions = {"HTML", "CSS", "AMPL", "Tcl"}
     secret_exclude = os.getenv("EXCLUDED_LANGS")
     extra_exclusions = {x.strip() for x in secret_exclude.split(",")} if secret_exclude else set()
     excluded_langs = base_exclusions.union(extra_exclusions)
