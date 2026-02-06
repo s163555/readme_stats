@@ -110,10 +110,10 @@ async def main() -> None:
     excluded_repos = (
         {x.strip() for x in exclude_repos.split(",")} if exclude_repos else None
     )
-    exclude_langs = os.getenv("EXCLUDED_LANGS")
-    excluded_langs = (
-        {x.strip() for x in exclude_langs.split(",")} if exclude_langs else None
-    )
+    base_exclusions = {"HTML", "CSS"}
+    secret_exclude = os.getenv("EXCLUDED_LANGS")
+    extra_exclusions = {x.strip() for x in secret_exclude.split(",")} if secret_exclude else set()
+    excluded_langs = base_exclusions.union(extra_exclusions)
     # Convert a truthy value to a Boolean
     raw_ignore_forked_repos = os.getenv("EXCLUDE_FORKED_REPOS")
     ignore_forked_repos = (
