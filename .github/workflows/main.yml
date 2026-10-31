@@ -52,7 +52,10 @@ jobs:
 
     - name: Commit to the repo
       run: |
-        git add .
-        # Force the build to succeed, even if no files were changed
-        git commit -m 'Update generated files' || true
-        git push --set-upstream origin generated
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@://github.com"
+        git checkout --orphan generated
+        git rm -rf . --quiet
+        git add generated/overview.svg generated/languages.svg
+        git commit -m 'Update generated files'
+        git push --set-upstream origin generated --force
